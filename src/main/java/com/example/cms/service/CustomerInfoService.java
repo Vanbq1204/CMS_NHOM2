@@ -1,4 +1,4 @@
-package impl.customerInfo.service;
+package com.example.cms.service;
 
 import CMS.CustomerInfo;
 import CMS.CustomerInfoServicePOA;

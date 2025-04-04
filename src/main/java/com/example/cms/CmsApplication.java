@@ -15,20 +15,17 @@ public class CmsApplication {
 		SpringApplication.run(CmsApplication.class, args);
 
 		try {
-			String[] orbArgs = {};  // Any additional arguments if required
+			String[] orbArgs = {};
 			ORB orb = ORB.init(orbArgs, null);
 
-			// Create the CORBA object reference using corbaloc URL
-			String corbaloc = "corbaloc::localhost:1050/CustomerInfoService";  // Replace with your CORBA server's corbaloc URL
-			Object obj = orb.string_to_object(corbaloc);  // Convert the corbaloc string to an object reference
+			String corbaloc = "corbaloc::localhost:1050/CustomerInfoService";
+			Object obj = orb.string_to_object(corbaloc);
 
-			// Narrow the object reference to the correct type (CustomerInfoService)
 			CustomerInfoService customerInfoService = CustomerInfoServiceHelper.narrow(obj);
 
 			if (customerInfoService != null) {
 				System.out.println("Successfully connected to CORBA server!");
-				// Now you can call methods on customerInfoService (e.g., getCustomer, searchCustomer, etc.)
-				// Example: CustomerInfo customer = customerInfoService.getCustomer("customerId");
+
 			} else {
 				System.out.println("Failed to connect to CORBA server.");
 			}
