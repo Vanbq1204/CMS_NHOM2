@@ -1,0 +1,59 @@
+module CMS {
+    struct CustomerInfo {
+        string customerId;
+        string customerName;
+        string customerEmail;
+        string customerPhone;
+        string customerAddress;
+        string customerStatus;
+    };
+
+    struct EmailCampaign {
+        string campaignId;
+        string title;
+        string content;
+        string targetSegment;
+        string status;
+    };
+
+    struct CustomerCare {
+        string ticketId;
+        string customerId;
+        string issue;
+        string status;
+        string priority;
+        string resolution;
+    };
+
+    typedef sequence<CustomerInfo> CustomerInfoSeq;
+    typedef sequence<string> StringSeq;
+    typedef sequence<CustomerCare> CustomerCareSeq;
+
+    interface CustomerInfoService {
+        CustomerInfo getCustomer(in string customerId);
+        CustomerInfoSeq searchCustomer(in string criteria);
+        boolean addCustomer(in CustomerInfo customer);
+        CustomerInfoSeq getAllCustomer();
+    };
+
+    interface CustomerUpdateService {
+        boolean updateCustomerInfo(in string customerId, in CustomerInfo newInfo);
+        boolean updateStatus(in string customerId, in string newStatus);
+        void logCustomerChange(in string customerId, in string changeType);
+    };
+
+    interface EmailMarketingService {
+        boolean createCampaign(in EmailCampaign campaign);
+        boolean sendCampaign(in string campaignId);
+        StringSeq getCustomerSegment(in string segmentCriteria);
+        EmailCampaign getCampaign(in string campaignId);
+    };
+
+    interface CustomerCareService {
+        string createTicket(in CustomerCare ticket);
+        boolean updateTicket(in string ticketId, in CustomerCare updateTicket);
+        CustomerCare getTicketInfo(in string ticketId);
+        CustomerCareSeq getCustomerTicket(in string customerId);
+    };
+
+};
