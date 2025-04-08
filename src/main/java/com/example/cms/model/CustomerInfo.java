@@ -12,4 +12,28 @@ public class CustomerInfo {
     private String customerPhone;
     private String customerAddress;
     private String customerStatus;
+
+    public String getName() {
+        return customerName;
+    }
+
+    public void setName(String name) {
+        this.customerName = name;
+    }
+
+    public String getEmail() {
+        return customerEmail;
+    }
+
+    public void setEmail(String email) {
+        this.customerEmail = email;
+    }
+
+    public String getPhone() {
+        return customerPhone;
+    }
+
+    public void setPhone(String phone) {
+        this.customerPhone = phone;
+    }
 }
