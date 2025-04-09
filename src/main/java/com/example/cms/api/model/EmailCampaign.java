@@ -1,4 +1,4 @@
-package com.example.cms.model;
+package com.example.cms.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,17 +8,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 @Document
-public class CustomerCare {
+public class EmailCampaign {
     @Id
-    private String ticketId;
-    private String customerId;
-    private String issue;
+    private String campaignId;
+    private String title;
+    private String content;
+    private String targetSegment;
     private String status;
-    private String priority;
-    private String resolution;
     private String createdAt;
 
-    private CustomerCare() {
+    private EmailCampaign() {
         // Default constructor
     }
 }

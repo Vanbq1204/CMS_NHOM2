@@ -1,4 +1,4 @@
-package com.example.cms.service;
+package com.example.cms.corba.service;
 
 import CMS.EmailCampaign;
 import CMS.EmailMarketingServicePOA;

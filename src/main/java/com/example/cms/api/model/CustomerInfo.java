@@ -1,4 +1,4 @@
-package com.example.cms.model;
+package com.example.cms.api.model;
 
 import lombok.Getter;
 import lombok.Setter;

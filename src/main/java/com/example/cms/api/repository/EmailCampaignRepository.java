@@ -1,6 +1,6 @@
-package com.example.cms.repository;
+package com.example.cms.api.repository;
 
-import com.example.cms.model.EmailCampaign;
+import com.example.cms.api.model.EmailCampaign;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface EmailCampaignRepository extends MongoRepository<EmailCampaign, String> {
