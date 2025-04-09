@@ -15,6 +15,7 @@ public class CustomerInfo {
     private String customerEmail;
     private String customerPhone;
     private String customerAddress;
+    private String customerType;
     private String customerStatus;
 
     private CustomerInfo() {
