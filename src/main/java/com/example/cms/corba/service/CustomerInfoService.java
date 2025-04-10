@@ -1,4 +1,4 @@
-package com.example.cms.service;
+package com.example.cms.corba.service;
 
 import CMS.CustomerInfo;
 import CMS.CustomerInfoServicePOA;

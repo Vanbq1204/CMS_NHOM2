@@ -1,0 +1,1713 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #f0f4f8;
+    --text-color: #333;
+    --border-color: #ddd;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.brand {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand h2 {
+    font-size: 24px;
+}
+
+.admin-greeting {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu ul {
+    list-style-type: none;
+}
+
+.sidebar-menu li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-menu li a {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.sidebar-menu li:hover a, .sidebar-menu li.active a {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu li i {
+    margin-right: 15px;
+    width: 25px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.sidebar-menu li span {
+    font-size: 14px;
+}
+
+/* Active menu item */
+.sidebar-menu li.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    font-weight: 500;
+}
+
+.sidebar-menu li.active a {
+    border-left: 4px solid #ffffff;
+    padding-left: 16px;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    background-color: var(--secondary-color);
+    overflow-y: auto;
+}
+
+.header {
+    padding: 15px 20px;
+    background-color: white;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+}
+
+.toggle-menu {
+    margin-right: 15px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.content {
+    padding: 20px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.add-customer {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.add-customer i {
+    margin-right: 8px;
+}
+
+.email-campaign {
+    background-color: var(--info-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.email-campaign i {
+    margin-right: 8px;
+}
+
+/* Table Styles */
+.customer-table {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1100px;
+}
+
+th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+th {
+    background-color: #f5f7fa;
+    font-weight: 600;
+    font-size: 12px;
+    color: #555;
+}
+
+td {
+    font-size: 14px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+    background-color: #f0f4f8;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 15px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--success-color);
+    border-radius: 10px;
+}
+
+.progress-bar span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.status.new {
+    background-color: #e3f2fd;
+    color: #2196f3;
+}
+
+.actions {
+    display: flex;
+    gap: 4px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.actions button {
+    padding: 5px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.actions button i {
+    margin-right: 4px;
+}
+
+.edit {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.print {
+    background-color: #17a2b8;
+    color: white;
+}
+
+/* Form thêm khách hàng */
+.add-customer-form {
+    display: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-customer-form.active {
+    display: block;
+}
+
+.form-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px 15px;
+}
+
+.form-group {
+    flex: 1 0 calc(50% - 20px);
+    margin: 0 10px 16px;
+    min-width: 200px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #444;
+    transition: color 0.2s;
+}
+
+.form-group:focus-within label {
+    color: var(--primary-color);
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background-color: #fff;
+}
+
+.form-group input:hover, 
+.form-group select:hover, 
+.form-group textarea:hover {
+    border-color: #bbb;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.form-actions button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #152e6e;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cancel {
+    background-color: #f0f0f0;
+    color: #555;
+}
+
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Autocomplete dropdown */
+.autocomplete-dropdown {
+    display: none;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .form-group {
+        flex: 1 0 100%;
+    }
+}
+
+@media (max-width: 992px) {
+    .sidebar.collapsed {
+        width: 60px;
+        overflow: hidden;
+    }
+    
+    .sidebar.collapsed .brand h2,
+    .sidebar.collapsed .admin-greeting,
+    .sidebar.collapsed .sidebar-menu li span {
+        display: none;
+    }
+    
+    .sidebar.collapsed .sidebar-menu li a {
+        justify-content: center;
+        padding: 15px 0;
+    }
+    
+    .sidebar.collapsed .sidebar-menu li i {
+        margin-right: 0;
+        font-size: 20px;
+    }
+    
+    .main-content.expanded {
+        margin-left: 60px;
+    }
+    
+    .sidebar.collapsed .sidebar-menu li.active a {
+        border-left: none;
+        border-bottom: 4px solid #ffffff;
+        padding-bottom: 11px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .actions button {
+        width: 100%;
+    }
+}
+
+/* Cải thiện các ô select */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 30px !important;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: border-color 0.2s;
+}
+
+.form-group select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.1);
+}
+
+/* Màu sắc cho tình trạng khách hàng */
+.customer-active {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.customer-inactive {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.customer-new {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Màu sắc cho phân loại khách hàng */
+.customer-type {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.customer-type.potential {
+    background-color: #fff8e1;
+    color: #f57f17;
+}
+
+.customer-type.current {
+    background-color: #e0f7fa;
+    color: #006064;
+}
+
+.customer-type.vip {
+    background-color: #fce4ec;
+    color: #ad1457;
+}
+
+.customer-type.industry {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+}
+
+.customer-type.regional {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+}
+
+/* Chức năng tìm kiếm và lọc */
+.search-filter-container {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-box {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+}
+
+.search-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.filter-group {
+    flex: 1 0 200px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.filter-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.apply-filters {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.reset-filters {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* Tab styles cho giao diện sửa */
+.form-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    position: relative;
+    color: #666;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.tab-content {
+    margin-bottom: 20px;
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+/* Lịch sử chỉnh sửa */
+.edit-history {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #666;
+}
+
+.history-date {
+    font-weight: 500;
+}
+
+.history-user {
+    color: var(--primary-color);
+}
+
+.history-details p {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.old-value {
+    text-decoration: line-through;
+    color: #d32f2f;
+}
+
+.new-value {
+    font-weight: 500;
+    color: #388e3c;
+}
+
+/* Form fields có trường chỉ đọc */
+input[readonly] {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* Modal Styles - updated to avoid conflicts */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.modal-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+/* Tabs trong modal */
+.tab-container {
+    width: 100%;
+}
+
+.tab-header {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    color: #666;
+    font-weight: 500;
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+    padding: 10px 5px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Form trong tab tạo chiến dịch */
+.form-group.full-width {
+    flex: 1 0 100%;
+}
+
+.email-editor {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.toolbar-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.toolbar-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.template-select {
+    margin-left: auto;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.email-textarea {
+    width: 100%;
+    border: none;
+    resize: vertical;
+    padding: 12px;
+    font-size: 14px;
+    min-height: 250px;
+}
+
+.email-textarea:focus {
+    outline: none;
+}
+
+/* Nút hành động email */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Danh sách email */
+.list-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.email-lists-table, .campaigns-table {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    overflow-x: auto;
+}
+
+.list-category {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.list-category.potential {
+    background-color: #fff8e1;
+    color: #f57f17;
+}
+
+.list-category.vip {
+    background-color: #fce4ec;
+    color: #ad1457;
+}
+
+.list-category.regional {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+}
+
+/* Thống kê chiến dịch */
+.stats-overview {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    flex: 1;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-icon {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.campaigns-table h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+.campaign-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.campaign-status.completed {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.campaign-status.scheduled {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+/* Cập nhật cho các section nội dung */
+.content-section {
+    width: 100%;
+    height: 100%;
+}
+
+/* Tab styles cho giao diện Email Marketing */
+.tab-header {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.tab-button {
+    padding: 15px 25px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    color: #666;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.tab-button:hover {
+    color: var(--primary-color);
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Thêm CSS đồng bộ cho phần Email Marketing */
+#email-marketing-section .tab-container {
+    margin-top: 20px;
+}
+
+#email-marketing-section .form-row {
+    margin-bottom: 20px;
+}
+
+#email-marketing-section .form-group label {
+    margin-bottom: 8px;
+}
+
+#email-marketing-section .stat-card {
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px 20px;
+    transition: transform 0.2s;
+}
+
+#email-marketing-section .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#email-marketing-section .stat-icon {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+#email-marketing-section .campaigns-table h3 {
+    margin: 25px 0 15px;
+    font-size: 18px;
+    color: #444;
+}
+
+/* Cải thiện kiểu cho các nút */
+.btn-primary, .btn-secondary, .btn-danger {
+    padding: 10px 20px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.btn-primary i, .btn-secondary i, .btn-danger i {
+    margin-right: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #152e6e;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* CSS cho phần Chăm sóc khách hàng */
+.tickets-stats, .complaints-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px 0 30px;
+}
+
+.tickets-stats .stat-card, .complaints-stats .stat-card {
+    flex: 1;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.tickets-stats .stat-card:hover, .complaints-stats .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter-container .filter-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+.filter-container .search-box {
+    flex: 2;
+    min-width: 300px;
+    display: flex;
+}
+
+.tickets-table, .complaints-table {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+/* Styles cho trạng thái */
+.status.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status.in-progress {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status.resolved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status.closed {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+.status.new {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Styles cho mức độ nghiêm trọng */
+.severity {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.severity.low {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.severity.medium {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.severity.high {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.severity.critical {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Style cho trường Chưa phân công */
+.unassigned {
+    font-style: italic;
+    color: #6c757d;
+}
+
+/* Nút hành động trong bảng */
+.view-ticket, .edit-ticket, .assign-ticket,
+.view-complaint, .edit-complaint, .resolve-complaint {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: all 0.2s;
+}
+
+.view-ticket, .view-complaint {
+    background-color: #6c757d;
+    color: white;
+}
+
+.edit-ticket, .edit-complaint {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.assign-ticket {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.resolve-complaint {
+    background-color: #28a745;
+    color: white;
+}
+
+.view-ticket:hover, .view-complaint:hover {
+    background-color: #5a6268;
+}
+
+.edit-ticket:hover, .edit-complaint:hover {
+    background-color: #e0a800;
+}
+
+.assign-ticket:hover {
+    background-color: #138496;
+}
+
+.resolve-complaint:hover {
+    background-color: #218838;
+}
+
+/* Style cho action buttons */
+#new-ticket, #new-complaint {
+    margin-bottom: 20px;
+}
+
+/* Responsive cho các bảng trong tab Chăm sóc khách hàng */
+@media (max-width: 1200px) {
+    .tickets-stats, .complaints-stats {
+        flex-wrap: wrap;
+    }
+    
+    .tickets-stats .stat-card, .complaints-stats .stat-card {
+        flex: 1 0 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .tickets-stats .stat-card, .complaints-stats .stat-card {
+        flex: 1 0 100%;
+    }
+}
+
+/* Styles cho trang Quản lý hạng mục dịch vụ */
+.section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.service-form {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.service-form .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.service-form .form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.service-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.service-form input,
+.service-form select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.service-form input:focus,
+.service-form select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.service-table {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.service-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.service-table th,
+.service-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.service-table th {
+    background-color: #f5f7fa;
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+}
+
+.service-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.service-table tbody tr:hover {
+    background-color: #f0f4f8;
+}
+
+.edit-service, 
+.delete-service {
+    padding: 6px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.edit-service {
+    background-color: #3498db;
+    color: white;
+}
+
+.delete-service {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.edit-service i,
+.delete-service i {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.edit-service:hover {
+    background-color: #2980b9;
+}
+
+.delete-service:hover {
+    background-color: #c0392b;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.page-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.page-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Responsive cho form dịch vụ */
+@media (max-width: 992px) {
+    .service-form .form-group {
+        flex: 1 0 calc(50% - 15px);
+    }
+}
+
+@media (max-width: 768px) {
+    .service-form .form-group {
+        flex: 1 0 100%;
+    }
+    
+    .edit-service, 
+    .delete-service {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+}
+
+/* Edit Customer Inline View */
+.edit-customer-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-top: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.edit-title {
+    font-size: 22px;
+    color: var(--primary-color);
+    margin: 0;
+    font-weight: 600;
+}
+
+.back-button {
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-button:hover {
+    background-color: #e8e8e8;
+    color: #333;
+}
+
+.edit-content-wrapper {
+    display: flex;
+    gap: 30px;
+}
+
+.edit-form-container {
+    flex: 3;
+    padding-right: 25px;
+    border-right: 1px solid var(--border-color);
+}
+
+.edit-history-container {
+    flex: 2;
+}
+
+.section-title {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* History items in edit view */
+.edit-history-container .history-container {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    height: 100%;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.edit-history-container .history-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+}
+
+.edit-history-container .history-item:hover {
+    background-color: #f0f4f8;
+}
+
+.edit-history-container .history-item:last-child {
+    border-bottom: none;
+}
+
+.edit-history-container .history-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #666;
+}
+
+.edit-history-container .history-date {
+    font-weight: 500;
+}
+
+.edit-history-container .history-user {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.edit-history-container .history-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.edit-history-container .old-value {
+    text-decoration: line-through;
+    color: #d32f2f;
+    font-weight: normal;
+}
+
+.edit-history-container .new-value {
+    font-weight: 500;
+    color: #388e3c;
+}
+
+/* Responsive layout for edit view */
+@media (max-width: 1024px) {
+    .edit-content-wrapper {
+        flex-direction: column;
+    }
+    
+    .edit-form-container {
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .edit-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .back-button {
+        align-self: flex-start;
+    }
+}
+
+/* Form tạo khiếu nại và form yêu cầu hỗ trợ */
+.support-request-form, #complaint-form-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    margin-bottom: 20px;
+    width: 100%;
+    animation: fadeIn 0.3s ease;
+}
+
+.support-request-form .form-title, #complaint-form-container .form-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.support-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.support-form .form-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .support-form .form-row {
+        flex-direction: column;
+    }
+}
+
+.support-form .form-group {
+    flex: 1;
+}
+
+.support-form .full-width {
+    width: 100%;
+}
+
+.support-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #444;
+}
+
+.support-form input,
+.support-form select,
+.support-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.support-form input:focus,
+.support-form select:focus,
+.support-form textarea:focus {
+    border-color: #4a6fdc;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 111, 220, 0.1);
+}
+
+.support-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.support-form .btn-cancel {
+    background-color: #f1f1f1;
+    color: #555;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.support-form .btn-cancel:hover {
+    background-color: #e5e5e5;
+} 
