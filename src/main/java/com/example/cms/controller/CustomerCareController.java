@@ -1,38 +1,42 @@
 package com.example.cms.controller;
 
-import com.example.cms.model.CustomerCare;
+import com.example.cms.api.model.CustomerCare;
+import com.example.cms.api.repository.CustomerCareRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
+/**
+ * CustomerCareController: Quản lý API chăm sóc khách hàng.
+ * Bao gồm chức năng thêm mới, lấy danh sách, chi tiết theo ID.
+ */
 @RestController
 @RequestMapping("/api/customer-care")
 public class CustomerCareController {
-    private final Map<String, CustomerCare> tickets = new HashMap<>();
 
-    @PostMapping("/tickets")
-    public String createTicket(@RequestBody CustomerCare ticket) {
-        String id = UUID.randomUUID().toString();
-        tickets.put(id, ticket);
-        return id;
+    @Autowired
+    private CustomerCareRepository customerCareRepository;
+
+    @PostMapping
+    public ResponseEntity<CustomerCare> createCare(@RequestBody CustomerCare care) {
+        care.setCreatedAt(LocalDateTime.now());
+        CustomerCare saved = customerCareRepository.save(care);
+        return ResponseEntity.ok(saved);
     }
 
-    @PutMapping("/tickets/{id}")
-    public boolean updateTicket(@PathVariable String id, @RequestBody CustomerCare update) {
-        if (tickets.containsKey(id)) {
-            tickets.put(id, update);
-            return true;
-        }
-        return false;
+    @GetMapping
+    public ResponseEntity<List<CustomerCare>> getAllCare() {
+        List<CustomerCare> list = customerCareRepository.findAll();
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/tickets/{id}")
-    public CustomerCare getTicket(@PathVariable String id) {
-        return tickets.get(id);
-    }
-
-    @GetMapping("/tickets")
-    public Collection<CustomerCare> getAllTickets() {
-        return tickets.values();
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerCare> getCareById(@PathVariable String id) {
+        Optional<CustomerCare> care = customerCareRepository.findById(id);
+        return care.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
