@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThemeXinh - Quản lý hạng mục dịch vụ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="brand">
+                <h2>Soa Nhóm 2</h2>
+            </div>
+            <div class="sidebar-menu">
+                <div class="admin-greeting">
+                    <p>Xin chào, admin</p>
+                </div>
+                <ul>
+                    <li id="customer-management-link">
+                        <a href="index.html">
+                            <i class="fas fa-users"></i>
+                            <span>Quản lý khách hàng</span>
+                        </a>
+                    </li>
+                    <li id="email-marketing-link">
+                        <a href="email-marketing.html">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email Marketing</span>
+                        </a>
+                    </li>
+                    <li id="customer-care-link">
+                        <a href="customer-care.html">
+                            <i class="fas fa-headset"></i>
+                            <span>Chăm sóc khách hàng</span>
+                        </a>
+                    </li>
+                    <li id="service-management-link" class="active">
+                        <a href="service-management.html">
+                            <i class="fas fa-tasks"></i>
+                            <span>Quản lý hạng mục dịch vụ</span>
+                        </a>
+                    </li>
+                    <li id="logout-link">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <button class="toggle-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Quản lý hạng mục dịch vụ</h1>
+            </div>
+            
+            <!-- Section Quản lý hạng mục dịch vụ -->
+            <div class="content">
+                <div class="service-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service-name">Tên dịch vụ</label>
+                            <input type="text" id="service-name" placeholder="Nhập tên dịch vụ">
+                        </div>
+                        <div class="form-group">
+                            <label for="service-description">Mô tả</label>
+                            <input type="text" id="service-description" placeholder="Nhập mô tả dịch vụ">
+                        </div>
+                        <div class="form-group">
+                            <label for="service-type">Loại dịch vụ</label>
+                            <select id="service-type">
+                                <option value="">Chọn loại dịch vụ</option>
+                                <option value="once">Chi phí một lần</option>
+                                <option value="monthly">Theo tháng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="service-price">Chi phí (VNĐ)</label>
+                            <input type="text" id="service-price" placeholder="Nhập chi phí dịch vụ">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-primary" id="add-service">Thêm dịch vụ</button>
+                    </div>
+                </div>
+
+                <div class="service-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Mô tả</th>
+                                <th>Loại</th>
+                                <th>Chi phí (VNĐ)</th>
+                                <th>Đơn giá/tháng (VNĐ)</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Thiết kế giao diện</td>
+                                <td>Thiết kế giao diện theo yêu cầu</td>
+                                <td>Một lần</td>
+                                <td>5,000,000</td>
+                                <td>-</td>
+                                <td class="actions">
+                                    <button class="edit-service"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="delete-service"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Lập trình chức năng</td>
+                                <td>Làm giống như mẫu, ChatNghe gọi, tích hợp zalo, tích hợp facebook, v...v</td>
+                                <td>Một lần</td>
+                                <td>7,000,000</td>
+                                <td>-</td>
+                                <td class="actions">
+                                    <button class="edit-service"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="delete-service"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Tối ưu SEO</td>
+                                <td>Cấu hình SEO cơ bản</td>
+                                <td>Một lần</td>
+                                <td>5,000,000</td>
+                                <td>-</td>
+                                <td class="actions">
+                                    <button class="edit-service"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="delete-service"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Hosting</td>
+                                <td>Hosting 20GB, băng thông không giới hạn</td>
+                                <td>Theo tháng</td>
+                                <td>-</td>
+                                <td>100,000</td>
+                                <td class="actions">
+                                    <button class="edit-service"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="delete-service"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Tên miền .com</td>
+                                <td>Đăng ký tên miền .com</td>
+                                <td>Theo tháng</td>
+                                <td>-</td>
+                                <td>25,000</td>
+                                <td class="actions">
+                                    <button class="edit-service"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="delete-service"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Quản trị website</td>
+                                <td>Đăng bài và quản trị nội dung</td>
+                                <td>Theo tháng</td>
+                                <td>-</td>
+                                <td>5,000,000</td>
+                                <td class="actions">
+                                    <button class="edit-service"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="delete-service"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <button class="page-btn">Quay lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="common.js"></script>
+    <script src="service-management.js"></script>
+</body>
+</html> 

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThemeXinh - Chăm sóc khách hàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="brand">
+                <h2>Soa Nhóm 2</h2>
+            </div>
+            <div class="sidebar-menu">
+                <div class="admin-greeting">
+                    <p>Xin chào, admin</p>
+                </div>
+                <ul>
+                    <li id="customer-management-link">
+                        <a href="index.html">
+                            <i class="fas fa-users"></i>
+                            <span>Quản lý khách hàng</span>
+                        </a>
+                    </li>
+                    <li id="email-marketing-link">
+                        <a href="email-marketing.html">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email Marketing</span>
+                        </a>
+                    </li>
+                    <li id="customer-care-link" class="active">
+                        <a href="customer-care.html">
+                            <i class="fas fa-headset"></i>
+                            <span>Chăm sóc khách hàng</span>
+                        </a>
+                    </li>
+                    <li id="service-management-link">
+                        <a href="service-management.html">
+                            <i class="fas fa-tasks"></i>
+                            <span>Quản lý hạng mục dịch vụ</span>
+                        </a>
+                    </li>
+                    <li id="logout-link">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <button class="toggle-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Chăm sóc khách hàng</h1>
+            </div>
+            
+            <!-- Section Chăm sóc khách hàng -->
+            <div class="content">
+                <div class="tab-container">
+                    <div class="tab-header">
+                        <button class="tab-button active" data-tab="support-tickets">Yêu cầu hỗ trợ</button>
+                        <button class="tab-button" data-tab="complaints">Quản lý khiếu nại</button>
+                    </div>
+                    
+                    <div class="tab-body">
+                        <!-- Tab Yêu cầu hỗ trợ -->
+                        <div class="tab-content active" id="support-tickets">
+                            <div class="action-buttons">
+                                <button class="btn-primary" id="new-ticket">
+                                    <i class="fas fa-plus"></i>
+                                    Tạo yêu cầu hỗ trợ mới
+                                </button>
+                            </div>
+                            
+                            <!-- Form tạo yêu cầu hỗ trợ mới - ban đầu ẩn đi -->
+                            <div class="support-request-form" id="support-request-form-container" style="display: none;">
+                                <h2 class="form-title">Tạo yêu cầu hỗ trợ mới</h2>
+                                
+                                <div class="support-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="customer">Khách hàng</label>
+                                            <select id="customer" name="customer" required>
+                                                <option value="">Chọn khách hàng</option>
+                                                <option value="1">Nguyễn Xuân Bình</option>
+                                                <option value="2">Trần Minh Hùng</option>
+                                                <option value="3">Lê Thị Hoa</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="request-type">Loại yêu cầu</label>
+                                            <select id="request-type" name="requestType" required>
+                                                <option value="">Chọn loại</option>
+                                                <option value="technical">Hỗ trợ kỹ thuật</option>
+                                                <option value="content">Thay đổi nội dung</option>
+                                                <option value="design">Thay đổi thiết kế</option>
+                                                <option value="consultation">Tư vấn</option>
+                                                <option value="other">Khác</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group full-width">
+                                            <label for="title">Tiêu đề</label>
+                                            <input type="text" id="title" name="title" placeholder="Nhập tiêu đề yêu cầu" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="staff">Nhân viên phụ trách</label>
+                                            <select id="staff" name="staff">
+                                                <option value="">Chọn nhân viên</option>
+                                                <option value="1">Nguyễn Văn A</option>
+                                                <option value="2">Trần Thị B</option>
+                                                <option value="3">Lê Văn C</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="priority">Mức độ ưu tiên</label>
+                                            <select id="priority" name="priority" required>
+                                                <option value="">Chọn mức độ</option>
+                                                <option value="low">Thấp</option>
+                                                <option value="medium">Trung bình</option>
+                                                <option value="high">Cao</option>
+                                                <option value="urgent">Khẩn cấp</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group full-width">
+                                            <label for="description">Mô tả yêu cầu hỗ trợ</label>
+                                            <textarea id="description" name="description" placeholder="Nhập chi tiết về yêu cầu hỗ trợ" rows="5" required></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="deadline">Hạn xử lý</label>
+                                            <input type="date" id="deadline" name="deadline" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="button" class="btn-cancel" id="cancel-support-request">Hủy bỏ</button>
+                                        <button type="button" class="btn-primary" id="save-support-request">Lưu yêu cầu</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Nội dung hiển thị khi không có form -->
+                            <div id="tickets-content">
+                                <div class="tickets-stats">
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-ticket-alt"></i></div>
+                                        <div class="stat-value">24</div>
+                                        <div class="stat-label">Yêu cầu chưa hỗ trợ</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-spinner"></i></div>
+                                        <div class="stat-value">18</div>
+                                        <div class="stat-label">Đang hỗ trợ</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                                        <div class="stat-value">156</div>
+                                        <div class="stat-label">Đã hỗ trợ</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                                        <div class="stat-value">92%</div>
+                                        <div class="stat-label">Tỷ lệ giải quyết</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="filter-container">
+                                    <div class="filter-group">
+                                        <label>Trạng thái</label>
+                                        <select id="ticket-status-filter">
+                                            <option value="">Tất cả trạng thái</option>
+                                            <option value="pending">Chưa hỗ trợ</option>
+                                            <option value="in-progress">Đang hỗ trợ</option>
+                                            <option value="resolved">Đã hỗ trợ</option>
+                                            <option value="closed">Đã đóng</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label>Nhân viên phụ trách</label>
+                                        <select id="ticket-staff-filter">
+                                            <option value="">Tất cả nhân viên</option>
+                                            <option value="unassigned">Chưa phân công</option>
+                                            <option value="nguyen-van-a">Nguyễn Văn A</option>
+                                            <option value="tran-thi-b">Trần Thị B</option>
+                                            <option value="le-van-c">Lê Văn C</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label>Loại yêu cầu</label>
+                                        <select id="ticket-type-filter">
+                                            <option value="">Tất cả loại</option>
+                                            <option value="technical">Kỹ thuật</option>
+                                            <option value="billing">Thanh toán</option>
+                                            <option value="product">Sản phẩm</option>
+                                            <option value="service">Dịch vụ</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="search-box">
+                                        <input type="text" placeholder="Tìm kiếm theo ID, tên KH hoặc nội dung...">
+                                        <button class="search-button"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <div class="tickets-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Khách hàng</th>
+                                                <th>Tiêu đề</th>
+                                                <th>Loại yêu cầu</th>
+                                                <th>Nhân viên phụ trách</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Cập nhật cuối</th>
+                                                <th>Trạng thái</th>
+                                                <th>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>#TK001</td>
+                                                <td>Nguyễn Xuân Bình</td>
+                                                <td>Lỗi không truy cập được trang quản trị</td>
+                                                <td>Kỹ thuật</td>
+                                                <td>Nguyễn Văn A</td>
+                                                <td>15/06/2023</td>
+                                                <td>16/06/2023</td>
+                                                <td><span class="status in-progress">Đang hỗ trợ</span></td>
+                                                <td class="actions">
+                                                    <button class="view-ticket"><i class="fas fa-eye"></i></button>
+                                                    <button class="edit-ticket"><i class="fas fa-edit"></i></button>
+                                                    <button class="assign-ticket"><i class="fas fa-user-check"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>#TK002</td>
+                                                <td>Trần Minh Hùng</td>
+                                                <td>Xin thông tin về phí gia hạn dịch vụ</td>
+                                                <td>Thanh toán</td>
+                                                <td>Trần Thị B</td>
+                                                <td>14/06/2023</td>
+                                                <td>15/06/2023</td>
+                                                <td><span class="status resolved">Đã hỗ trợ</span></td>
+                                                <td class="actions">
+                                                    <button class="view-ticket"><i class="fas fa-eye"></i></button>
+                                                    <button class="edit-ticket"><i class="fas fa-edit"></i></button>
+                                                    <button class="assign-ticket"><i class="fas fa-user-check"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>#TK003</td>
+                                                <td>Lê Thị Hoa</td>
+                                                <td>Cần hỗ trợ thêm tính năng cho website</td>
+                                                <td>Dịch vụ</td>
+                                                <td><span class="unassigned">Chưa phân công</span></td>
+                                                <td>16/06/2023</td>
+                                                <td>16/06/2023</td>
+                                                <td><span class="status pending">Chưa hỗ trợ</span></td>
+                                                <td class="actions">
+                                                    <button class="view-ticket"><i class="fas fa-eye"></i></button>
+                                                    <button class="edit-ticket"><i class="fas fa-edit"></i></button>
+                                                    <button class="assign-ticket"><i class="fas fa-user-check"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tab Quản lý khiếu nại -->
+                        <div class="tab-content" id="complaints">
+                            <div class="action-buttons">
+                                <button class="btn-primary" id="new-complaint">
+                                    <i class="fas fa-plus"></i>
+                                    Tạo khiếu nại mới
+                                </button>
+                            </div>
+                            
+                            <!-- Form tạo khiếu nại mới - ban đầu ẩn đi -->
+                            <div class="support-request-form" id="complaint-form-container" style="display: none;">
+                                <h2 class="form-title">Tạo khiếu nại mới</h2>
+                                
+                                <div class="support-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="complaint-customer">Khách hàng</label>
+                                            <select id="complaint-customer" name="customer" required>
+                                                <option value="">Chọn khách hàng</option>
+                                                <option value="1">Nguyễn Xuân Bình</option>
+                                                <option value="2">Trần Minh Hùng</option>
+                                                <option value="3">Lê Thị Hoa</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="complaint-type">Loại khiếu nại</label>
+                                            <select id="complaint-type" name="complaintType" required>
+                                                <option value="">Chọn loại</option>
+                                                <option value="product">Sản phẩm</option>
+                                                <option value="service">Dịch vụ</option>
+                                                <option value="delivery">Giao hàng</option>
+                                                <option value="payment">Thanh toán</option>
+                                                <option value="staff">Nhân viên</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group full-width">
+                                            <label for="complaint-title">Tiêu đề</label>
+                                            <input type="text" id="complaint-title" name="title" placeholder="Nhập tiêu đề khiếu nại" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="complaint-status">Trạng thái</label>
+                                            <select id="complaint-status" name="status" required>
+                                                <option value="new">Mới</option>
+                                                <option value="in-progress">Đang xử lý</option>
+                                                <option value="resolved">Đã giải quyết</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="complaint-severity">Mức độ</label>
+                                            <select id="complaint-severity" name="severity" required>
+                                                <option value="low">Thấp</option>
+                                                <option value="medium" selected>Trung bình</option>
+                                                <option value="high">Cao</option>
+                                                <option value="critical">Nghiêm trọng</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group full-width">
+                                            <label for="complaint-description">Nội dung khiếu nại</label>
+                                            <textarea id="complaint-description" name="description" placeholder="Nhập chi tiết về khiếu nại" rows="5" required></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="complaint-deadline">Hạn xử lý</label>
+                                            <input type="date" id="complaint-deadline" name="deadline" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="button" class="btn-cancel" id="cancel-complaint">Hủy bỏ</button>
+                                        <button type="button" class="btn-primary" id="save-complaint">Lưu khiếu nại</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Nội dung hiển thị khi không có form -->
+                            <div id="complaints-content">
+                                <div class="complaints-stats">
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                        <div class="stat-value">8</div>
+                                        <div class="stat-label">Khiếu nại mới</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-spinner"></i></div>
+                                        <div class="stat-value">12</div>
+                                        <div class="stat-label">Đang xử lý</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                                        <div class="stat-value">94</div>
+                                        <div class="stat-label">Đã giải quyết</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                                        <div class="stat-value">95%</div>
+                                        <div class="stat-label">Tỷ lệ giải quyết</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="filter-container">
+                                    <div class="filter-group">
+                                        <label>Trạng thái</label>
+                                        <select id="complaint-status-filter">
+                                            <option value="">Tất cả trạng thái</option>
+                                            <option value="new">Mới</option>
+                                            <option value="in-progress">Đang xử lý</option>
+                                            <option value="resolved">Đã giải quyết</option>
+                                            <option value="closed">Đã đóng</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label>Mức độ</label>
+                                        <select id="complaint-severity-filter">
+                                            <option value="">Tất cả mức độ</option>
+                                            <option value="low">Thấp</option>
+                                            <option value="medium">Trung bình</option>
+                                            <option value="high">Cao</option>
+                                            <option value="critical">Nghiêm trọng</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label>Loại khiếu nại</label>
+                                        <select id="complaint-type-filter">
+                                            <option value="">Tất cả loại</option>
+                                            <option value="product">Sản phẩm</option>
+                                            <option value="service">Dịch vụ</option>
+                                            <option value="delivery">Giao hàng</option>
+                                            <option value="payment">Thanh toán</option>
+                                            <option value="staff">Nhân viên</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="search-box">
+                                        <input type="text" placeholder="Tìm kiếm theo ID, tên KH hoặc nội dung...">
+                                        <button class="search-button"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <div class="complaints-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Khách hàng</th>
+                                                <th>Tiêu đề</th>
+                                                <th>Loại khiếu nại</th>
+                                                <th>Mức độ</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Hạn xử lý</th>
+                                                <th>Trạng thái</th>
+                                                <th>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>#KN001</td>
+                                                <td>Nguyễn Văn Đức</td>
+                                                <td>Website không hoạt động sau khi cập nhật</td>
+                                                <td>Dịch vụ</td>
+                                                <td><span class="severity high">Cao</span></td>
+                                                <td>12/06/2023</td>
+                                                <td>14/06/2023</td>
+                                                <td><span class="status in-progress">Đang xử lý</span></td>
+                                                <td class="actions">
+                                                    <button class="view-complaint"><i class="fas fa-eye"></i></button>
+                                                    <button class="edit-complaint"><i class="fas fa-edit"></i></button>
+                                                    <button class="resolve-complaint"><i class="fas fa-check"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>#KN002</td>
+                                                <td>Phạm Thị Mai</td>
+                                                <td>Thanh toán bị trừ 2 lần</td>
+                                                <td>Thanh toán</td>
+                                                <td><span class="severity critical">Nghiêm trọng</span></td>
+                                                <td>10/06/2023</td>
+                                                <td>11/06/2023</td>
+                                                <td><span class="status resolved">Đã giải quyết</span></td>
+                                                <td class="actions">
+                                                    <button class="view-complaint"><i class="fas fa-eye"></i></button>
+                                                    <button class="edit-complaint"><i class="fas fa-edit"></i></button>
+                                                    <button class="resolve-complaint"><i class="fas fa-check"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>#KN003</td>
+                                                <td>Trần Văn Nam</td>
+                                                <td>Phản hồi về thái độ nhân viên</td>
+                                                <td>Nhân viên</td>
+                                                <td><span class="severity medium">Trung bình</span></td>
+                                                <td>15/06/2023</td>
+                                                <td>20/06/2023</td>
+                                                <td><span class="status new">Mới</span></td>
+                                                <td class="actions">
+                                                    <button class="view-complaint"><i class="fas fa-eye"></i></button>
+                                                    <button class="edit-complaint"><i class="fas fa-edit"></i></button>
+                                                    <button class="resolve-complaint"><i class="fas fa-check"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="common.js"></script>
+    <script src="customer-care.js"></script>
+</body>
+</html> 

@@ -1,4 +1,4 @@
-package com.example.cms.controller;
+package com.example.cms.api.controller;
 
 import com.example.cms.api.model.CustomerCare;
 import com.example.cms.api.repository.CustomerCareRepository;

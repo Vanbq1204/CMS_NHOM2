@@ -15,8 +15,8 @@ import java.util.Properties;
 public class CmsApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		System.setProperty("jdk.tls.client.protocols", "TLSv1.2,TLSv1.1,TLSv1");
-		System.setProperty("https.protocols", "TLSv1.2,TLSv1.1,TLSv1");
+//		System.setProperty("jdk.tls.client.protocols", "TLSv1.2,TLSv1.1,TLSv1");
+//		System.setProperty("https.protocols", "TLSv1.2,TLSv1.1,TLSv1");
 		SpringApplication.run(CmsApplication.class, args);
 	}
 
