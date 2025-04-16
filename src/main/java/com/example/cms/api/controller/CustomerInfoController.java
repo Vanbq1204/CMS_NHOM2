@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * CustomerInfoController: Xử lý các API liên quan tới khách hàng.
- * Bao gồm CRUD và lọc danh sách khách hàng.
- */
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerInfoController {

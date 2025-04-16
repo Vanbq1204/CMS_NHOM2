@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
+@Document(collection = "email_receiver_group")
 public class EmailReceiverGroup {
 
     @Id

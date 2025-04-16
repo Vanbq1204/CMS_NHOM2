@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
+@Document(collection = "email_campaign")
 public class EmailCampaign {
     @Id
     private String id;
@@ -23,8 +23,10 @@ public class EmailCampaign {
     private String status;
     private String createdAt;
     private LocalDateTime scheduledAt;
+    private String receiverGroup;
+    private int receivedCount;
     private int openCount;
     private int clickCount;
-    private int bounceCount;
+    private int bouncedCount;
     private int sendCount;
 }

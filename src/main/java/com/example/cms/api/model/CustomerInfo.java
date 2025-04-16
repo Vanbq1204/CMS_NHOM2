@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -22,6 +24,5 @@ public class CustomerInfo {
     private String address;
     private String type;
     private String status;
-
-
+    private LocalDateTime createdAt;
 }

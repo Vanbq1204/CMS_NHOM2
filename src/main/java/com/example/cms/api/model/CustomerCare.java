@@ -19,8 +19,9 @@ public class CustomerCare {
     @Id
     private String id;
     private String customerId;
-    private String note;
-    private String supporter;
+    private String issue;
+    private String status;
+    private String priority;
+    private String resolution;
     private LocalDateTime createdAt;
-
 }
