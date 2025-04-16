@@ -3,7 +3,7 @@ package com.example.cms.corba.service;
 import CMS.EmailCampaign;
 import CMS.EmailMarketingServicePOA;
 
-public class EmailMarketingService extends EmailMarketingServicePOA {
+public class CorbaEmailMarketingService extends EmailMarketingServicePOA {
     @Override
     public boolean createCampaign(EmailCampaign campaign) {
         return false;

@@ -3,7 +3,7 @@ package com.example.cms.corba.service;
 import CMS.CustomerInfo;
 import CMS.CustomerUpdateServicePOA;
 
-public class CustomerUpdateService extends CustomerUpdateServicePOA {
+public class CorbaCustomerUpdateService extends CustomerUpdateServicePOA {
     @Override
     public boolean updateCustomerInfo(String customerId, CustomerInfo newInfo) {
         return false;

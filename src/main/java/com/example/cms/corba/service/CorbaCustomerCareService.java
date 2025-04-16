@@ -3,7 +3,7 @@ package com.example.cms.corba.service;
 import CMS.CustomerCare;
 import CMS.CustomerCareServicePOA;
 
-public class CustomerCareService extends CustomerCareServicePOA {
+public class CorbaCustomerCareService extends CustomerCareServicePOA {
     @Override
     public String createTicket(CustomerCare ticket) {
         return "";

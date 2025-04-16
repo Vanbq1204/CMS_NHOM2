@@ -5,7 +5,7 @@ import CMS.CustomerInfoServicePOA;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerInfoService extends CustomerInfoServicePOA {
+public class CorbaCustomerInfoService extends CustomerInfoServicePOA {
     @Override
     public CustomerInfo getCustomer(String customerId) {
         return new CustomerInfo();
