@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.time.LocalDateTime;
 
 @Document(collection = "customer_care")
@@ -24,4 +23,10 @@ public class CustomerCare {
     private String priority;
     private String resolution;
     private LocalDateTime createdAt;
+    public String getCustomerId() {
+        return customerId;
+    }
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 }

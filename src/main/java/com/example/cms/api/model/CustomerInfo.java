@@ -6,11 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.time.LocalDateTime;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "customer_info")
@@ -25,4 +24,10 @@ public class CustomerInfo {
     private String type;
     private String status;
     private LocalDateTime createdAt;
+    public String getCustomerId() {
+        return customerId;
+    }
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 }

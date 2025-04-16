@@ -76,7 +76,7 @@ _os.write_string( tmpResult28 );
 			org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke( "getTicketInfo", _opsClass );
 			if( _so == null )
 				continue;
-			CustomerCareServiceOperations _localServant = (CustomerCareServiceOperations)_so.servant;
+			CMS.CustomerCareServiceOperations _localServant = (CMS.CustomerCareServiceOperations)_so.servant;
 			CMS.CustomerCare _result;
 			try
 			{
