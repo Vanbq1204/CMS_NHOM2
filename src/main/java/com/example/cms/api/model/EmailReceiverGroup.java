@@ -7,24 +7,18 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class EmailCampaign {
+public class EmailReceiverGroup {
+
     @Id
     private String id;
-    private String title;
-    private String content;
-    private String targetSegment;
-    private String status;
-    private String createdAt;
-    private LocalDateTime scheduledAt;
-    private int openCount;
-    private int clickCount;
-    private int bounceCount;
-    private int sendCount;
+    private String name;
+    private List<String> customerIds;
+    private boolean autoSegmented;
 }
