@@ -1,7 +1,9 @@
 package com.example.cms.api.controller;
 
 import com.example.cms.api.model.CustomerCare;
+import com.example.cms.api.model.CustomerInfo;
 import com.example.cms.api.repository.CustomerCareRepository;
+import com.example.cms.api.repository.CustomerInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,10 @@ public class CustomerCareController {
 
     @Autowired
     private CustomerCareRepository customerCareRepository;
+
+    @Autowired
+    private CustomerInfoRepository customerInfoRepository;
+
 
     // Lấy toàn bộ yêu cầu chăm sóc khách hàng
     @GetMapping
@@ -49,9 +55,17 @@ public class CustomerCareController {
 
     // Tạo mới một yêu cầu chăm sóc khách hàng
     @PostMapping
-    public CustomerCare createCustomerCare(@RequestBody CustomerCare customerCare) {
-        return customerCareRepository.save(customerCare);
+    public ResponseEntity<?> createCustomerCare(@RequestBody CustomerCare customerCare) {
+        String customerId = customerCare.getCustomerId();
+        if (customerInfoRepository.existsById(customerId)) {
+            CustomerCare saved = customerCareRepository.save(customerCare);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("CustomerInfo ID không tồn tại. Không thể tạo CustomerCare.");
+        }
     }
+
 
     // Cập nhật thông tin yêu cầu chăm sóc khách hàng
     @PutMapping("/{id}")
