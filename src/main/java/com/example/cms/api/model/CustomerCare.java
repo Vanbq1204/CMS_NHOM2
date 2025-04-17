@@ -23,10 +23,5 @@ public class CustomerCare {
     private String priority;
     private String resolution;
     private LocalDateTime createdAt;
-    public String getCustomerId() {
-        return customerId;
-    }
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
+
 }

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class CustomerInfo {
 
     @Id
-    private String customerId;
+    private String id;
     private String name;
     private String email;
     private String phone;
@@ -24,10 +24,4 @@ public class CustomerInfo {
     private String type;
     private String status;
     private LocalDateTime createdAt;
-    public String getCustomerId() {
-        return customerId;
-    }
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
 }
