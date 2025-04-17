@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -68,5 +69,19 @@ public class EmailCampaignController {
     @GetMapping("/{id}/track/click")
     public void trackClick(@PathVariable String id) {
         emailCampaignService.trackClick(id);
+    }
+
+    @PostMapping("/{id}/schedule")
+    public ResponseEntity<EmailCampaign> scheduleCampaign(@PathVariable String id, @RequestParam String scheduledAt) {
+        return emailCampaignService.scheduleCampaign(id, LocalDateTime.parse(scheduledAt))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/{id}/draft")
+    public ResponseEntity<EmailCampaign> saveDraft(@PathVariable String id) {
+        return emailCampaignService.updateStatus(id, "Draft")
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

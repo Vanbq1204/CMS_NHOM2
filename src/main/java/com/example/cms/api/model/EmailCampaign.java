@@ -19,11 +19,14 @@ public class EmailCampaign {
     private String id;
     private String title;
     private String content;
-    private String targetSegment;
+
     private String status;
     private String createdAt;
     private LocalDateTime scheduledAt;
-    private String receiverGroup;
+
+    private String receiverGroupId;
+    private String customerType;
+
     private int receivedCount;
     private int openCount;
     private int clickCount;

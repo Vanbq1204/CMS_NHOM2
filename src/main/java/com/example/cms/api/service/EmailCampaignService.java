@@ -2,12 +2,15 @@ package com.example.cms.api.service;
 
 import com.example.cms.api.model.CustomerInfo;
 import com.example.cms.api.model.EmailCampaign;
+import com.example.cms.api.model.EmailReceiverGroup;
 import com.example.cms.api.repository.CustomerInfoRepository;
 import com.example.cms.api.repository.EmailCampaignRepository;
+import com.example.cms.api.repository.EmailReceiverGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,9 @@ public class EmailCampaignService {
 
     @Autowired
     private EmailCampaignRepository emailCampaignRepository;
+
+    @Autowired
+    private EmailReceiverGroupRepository emailReceiverGroupRepository;
 
     @Autowired
     private CustomerInfoRepository customerInfoRepository;
@@ -54,23 +60,42 @@ public class EmailCampaignService {
     }
 
     public Optional<EmailCampaign> sendCampaignNow(String id) {
-        return emailCampaignRepository.findById(id).map(campaign -> {
-            List<CustomerInfo> receivers = customerInfoRepository.findByType(campaign.getReceiverGroup());
+        return emailCampaignRepository.findById(id).map(emailCampaign -> {
+            List<CustomerInfo> receivers;
 
-            int received = 0, bounced = 0;
-
-            for (CustomerInfo receiver : receivers) {
-                boolean success = emailSenderService.sendEmail(
-                        receiver.getEmail(), campaign.getTitle(), campaign.getContent());
-
-                if (success) received++;
-                else bounced++;
+            if (emailCampaign.getReceiverGroupId() != null) {
+                Optional<EmailReceiverGroup> receiverGroup = emailReceiverGroupRepository.findById(emailCampaign.getReceiverGroupId());
+                if (receiverGroup.isPresent()) {
+                    receivers = customerInfoRepository.findAllById(receiverGroup.get().getCustomerIds());
+                } else {
+                    receivers = new ArrayList<>();
+                }
+            } else if (emailCampaign.getCustomerType() != null) {
+                receivers = customerInfoRepository.findByType(emailCampaign.getCustomerType());
+            } else {
+                receivers = new ArrayList<>();
             }
 
-            campaign.setStatus("Sent");
-            campaign.setReceivedCount(received);
-            campaign.setBouncedCount(bounced);
-            return emailCampaignRepository.save(campaign);
+            int received = 0;
+            int bounced = 0;
+
+            for (CustomerInfo customerInfo : receivers) {
+                boolean success = emailSenderService.sendEmail(
+                        customerInfo.getEmail(),
+                        emailCampaign.getTitle(),
+                        emailCampaign.getContent()
+                );
+
+                if (success) {
+                    received++;
+                } else {
+                    bounced++;
+                }
+            }
+            emailCampaign.setStatus(("Đã gửi"));
+            emailCampaign.setReceivedCount(received);
+            emailCampaign.setBouncedCount(bounced);
+            return emailCampaignRepository.save(emailCampaign);
         });
     }
 
@@ -85,6 +110,21 @@ public class EmailCampaignService {
         emailCampaignRepository.findById(campaignId).ifPresent(campaign -> {
             campaign.setClickCount(campaign.getClickCount() + 1);
             emailCampaignRepository.save(campaign);
+        });
+    }
+
+    public Optional<EmailCampaign> scheduleCampaign(String id, LocalDateTime scheduledTime) {
+        return emailCampaignRepository.findById(id).map(campaign -> {
+            campaign.setScheduledAt(scheduledTime);
+            campaign.setStatus("Scheduled");
+            return emailCampaignRepository.save(campaign);
+        });
+    }
+
+    public Optional<EmailCampaign> updateStatus(String id, String status) {
+        return emailCampaignRepository.findById(id).map(campaign -> {
+            campaign.setStatus(status);
+            return emailCampaignRepository.save(campaign);
         });
     }
 }

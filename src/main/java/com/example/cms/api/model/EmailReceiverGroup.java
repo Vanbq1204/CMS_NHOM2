@@ -20,5 +20,6 @@ public class EmailReceiverGroup {
     private String id;
     private String name;
     private List<String> customerIds;
+    private String customerType;
     private boolean autoSegmented;
 }
