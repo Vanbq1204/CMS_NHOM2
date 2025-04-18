@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soa Nhóm 2 - Đăng nhập</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <style>
         body {
             background-color: #f0f4f8;
@@ -175,19 +175,35 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('login-form');
-            
-            loginForm.addEventListener('submit', function(e) {
+
+            loginForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
+
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
-                
-                // Giả lập xác thực đơn giản (thực tế sẽ gửi đến máy chủ)
-                if (username === 'admin' && password === 'admin') {
-                    // Chuyển hướng đến trang chính sau khi đăng nhập thành công
-                    window.location.href = 'index.html';
-                } else {
-                    alert('Tên đăng nhập hoặc mật khẩu không chính xác!');
+
+                try {
+                    const response = await fetch('/api/users/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams({
+                            userName: username,
+                            password: password
+                        })
+                    });
+
+                    if (response.ok) {
+                        // Redirect to the main page after successful login
+                        window.location.href = 'index.html';
+                    } else {
+                        // Display an error message for invalid credentials
+                        alert('Tên đăng nhập hoặc mật khẩu không chính xác!');
+                    }
+                } catch (error) {
+                    console.error('Error during login:', error);
+                    alert('Đã xảy ra lỗi. Vui lòng thử lại sau!');
                 }
             });
         });

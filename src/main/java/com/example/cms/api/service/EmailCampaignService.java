@@ -65,11 +65,7 @@ public class EmailCampaignService {
 
             if (emailCampaign.getReceiverGroupId() != null) {
                 Optional<EmailReceiverGroup> receiverGroup = emailReceiverGroupRepository.findById(emailCampaign.getReceiverGroupId());
-                if (receiverGroup.isPresent()) {
-                    receivers = customerInfoRepository.findAllById(receiverGroup.get().getCustomerIds());
-                } else {
-                    receivers = new ArrayList<>();
-                }
+                receivers = receiverGroup.map(emailReceiverGroup -> customerInfoRepository.findAllById(emailReceiverGroup.getCustomerIds())).orElseGet(ArrayList::new);
             } else if (emailCampaign.getCustomerType() != null) {
                 receivers = customerInfoRepository.findByType(emailCampaign.getCustomerType());
             } else {
