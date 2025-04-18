@@ -112,7 +112,7 @@ public class EmailCampaignService {
     public Optional<EmailCampaign> scheduleCampaign(String id, LocalDateTime scheduledTime) {
         return emailCampaignRepository.findById(id).map(campaign -> {
             campaign.setScheduledAt(scheduledTime);
-            campaign.setStatus("Scheduled");
+            campaign.setStatus("Đã lên lic");
             return emailCampaignRepository.save(campaign);
         });
     }
