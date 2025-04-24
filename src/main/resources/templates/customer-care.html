@@ -1,0 +1,182 @@
+<div class="form-group">
+    <label for="customerSelect">Khách hàng</label>
+    <div class="input-group">
+        <select id="customerSelect" class="form-control" required>
+            <option value="">-- Chọn khách hàng --</option>
+        </select>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="reloadCustomers" title="Tải lại danh sách khách hàng">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#customerSearchModal" title="Tìm kiếm khách hàng">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal tìm kiếm khách hàng -->
+<div class="modal fade" id="customerSearchModal" tabindex="-1" role="dialog" aria-labelledby="customerSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customerSearchModalLabel">Tìm kiếm khách hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" id="customerSearchInput" class="form-control" placeholder="Nhập tên hoặc mã khách hàng...">
+                </div>
+                <div class="table-responsive">
+                    <table id="customerSearchResults" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã KH</th>
+                                <th>Tên</th>
+                                <th>Số điện thoại</th>
+                                <th>Email</th>
+                                <th>Địa chỉ</th>
+                                <th>Chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Kết quả tìm kiếm sẽ được hiển thị ở đây -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    $(document).ready(function() {
+        // Khởi tạo các biến
+        let allCustomers = [];
+        
+        // Xử lý sự kiện khi click vào nút "Tải lại danh sách"
+        $('#reloadCustomers').click(function() {
+            loadCustomerList();
+        });
+        
+        // Xử lý sự kiện khi click vào nút "Tìm kiếm KH"
+        $('button[data-target="#customerSearchModal"]').click(function() {
+            if (allCustomers.length === 0) {
+                loadAllCustomers();
+            }
+        });
+        
+        // Xử lý sự kiện khi nhập vào ô tìm kiếm
+        $('#customerSearchInput').on('input', function() {
+            const searchTerm = $(this).val().toLowerCase();
+            filterCustomerResults(searchTerm);
+        });
+        
+        // Hàm tải danh sách khách hàng cho dropdown
+        function loadCustomerList() {
+            $.ajax({
+                url: '/api/customers/list',
+                type: 'GET',
+                success: function(data) {
+                    $('#customerSelect').empty();
+                    $('#customerSelect').append('<option value="">-- Chọn khách hàng --</option>');
+                    
+                    $.each(data, function(index, customer) {
+                        $('#customerSelect').append(`<option value="${customer.id}">${customer.name} (${customer.phone})</option>`);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Lỗi khi tải danh sách khách hàng:', error);
+                    alert('Không thể tải danh sách khách hàng. Vui lòng thử lại sau.');
+                }
+            });
+        }
+        
+        // Hàm tải tất cả khách hàng cho modal tìm kiếm
+        function loadAllCustomers() {
+            $.ajax({
+                url: '/api/customers/list',
+                type: 'GET',
+                success: function(data) {
+                    allCustomers = data;
+                    displayCustomersInTable(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Lỗi khi tải danh sách khách hàng:', error);
+                    alert('Không thể tải danh sách khách hàng. Vui lòng thử lại sau.');
+                }
+            });
+        }
+        
+        // Hàm hiển thị khách hàng trong bảng tìm kiếm
+        function displayCustomersInTable(customers) {
+            const tbody = $('#customerSearchResults tbody');
+            tbody.empty();
+            
+            if (customers.length === 0) {
+                tbody.append('<tr><td colspan="6" class="text-center">Không tìm thấy khách hàng nào</td></tr>');
+                return;
+            }
+            
+            $.each(customers, function(index, customer) {
+                tbody.append(`
+                    <tr>
+                        <td>${customer.id || ''}</td>
+                        <td>${customer.name || ''}</td>
+                        <td>${customer.phone || ''}</td>
+                        <td>${customer.email || ''}</td>
+                        <td>${customer.address || ''}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary select-customer" 
+                                    data-id="${customer.id}" 
+                                    data-name="${customer.name}" 
+                                    data-phone="${customer.phone || ''}">
+                                Chọn
+                            </button>
+                        </td>
+                    </tr>
+                `);
+            });
+            
+            // Xử lý sự kiện khi click vào nút "Chọn"
+            $('.select-customer').click(function() {
+                const customerId = $(this).data('id');
+                const customerName = $(this).data('name');
+                const customerPhone = $(this).data('phone');
+                
+                // Cập nhật dropdown
+                $('#customerSelect').val(customerId);
+                
+                // Đóng modal
+                $('#customerSearchModal').modal('hide');
+            });
+        }
+        
+        // Hàm lọc kết quả tìm kiếm
+        function filterCustomerResults(searchTerm) {
+            if (!searchTerm) {
+                displayCustomersInTable(allCustomers);
+                return;
+            }
+            
+            const filteredCustomers = allCustomers.filter(customer => {
+                return (customer.id && customer.id.toLowerCase().includes(searchTerm)) ||
+                       (customer.name && customer.name.toLowerCase().includes(searchTerm)) ||
+                       (customer.phone && customer.phone.toLowerCase().includes(searchTerm)) ||
+                       (customer.email && customer.email.toLowerCase().includes(searchTerm));
+            });
+            
+            displayCustomersInTable(filteredCustomers);
+        }
+        
+        // Tải danh sách khách hàng khi trang được load
+        loadCustomerList();
+    });
+</script>
+
+<body> 

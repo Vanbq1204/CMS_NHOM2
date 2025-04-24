@@ -1,7 +1,6 @@
 package com.example.cms;
 
-import CMS.CustomerInfoService;
-import CMS.CustomerInfoServiceHelper;
+
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.Object;
 import org.springframework.boot.CommandLineRunner;

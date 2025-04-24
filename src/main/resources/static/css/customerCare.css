@@ -1,0 +1,363 @@
+/* Main Styles - đồng bộ với customer.css */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Wrapper và Layout */
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+/* Content Styles - Fix vấn đề bị che */
+#content {
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    right: 0;
+    padding-top: 0;
+}
+
+#content.active {
+    width: 100%;
+}
+
+/* Card Styles */
+.card {
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.card-header {
+    background-color: #1e3a8a;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    padding: 12px 15px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #1e3a8a;
+    border-color: #1e3a8a;
+}
+
+.btn-primary:hover {
+    background-color: #152b5e;
+    border-color: #152b5e;
+}
+
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Status và Priority Badge */
+.bg-primary {
+    background-color: #1e3a8a !important;
+}
+
+/* Responsive Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Badge styling */
+.badge {
+    padding: 0.5em 0.8em;
+    border-radius: 0.25rem;
+    color: white;
+    font-weight: 500;
+}
+
+/* Trạng thái ticket */
+.bg-primary, .bg-warning, .bg-success, .bg-secondary, .bg-info, .bg-danger {
+    color: white;
+}
+
+/* Customer info section */
+#customerInfo {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* Form card animation - Cải thiện animation */
+#ticketFormCard {
+    display: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+#ticketFormCard.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    #content {
+        width: 100%;
+    }
+    #content.active {
+        width: calc(100% - 250px);
+    }
+}
+
+/* Button Styles */
+.btn-toolbar {
+    margin-bottom: 15px;
+}
+
+/* Alert Floating - CSS mới để hiển thị alert nổi */
+.alert-floating {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.alert-floating.show-alert {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* Search and Filter Styles */
+.search-filter-row {
+    margin-bottom: 15px;
+}
+
+/* Modal Styles */
+.modal-dialog {
+    max-width: 800px;
+}
+
+.modal-header {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.modal-title {
+    color: white;
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.2em;
+}
+
+/* Status and Priority Colors */
+.status-new {
+    background-color: #e3f2fd;
+}
+
+.status-in-progress {
+    background-color: #fff3cd;
+}
+
+.status-resolved {
+    background-color: #d4edda;
+}
+
+.status-closed {
+    background-color: #f8d7da;
+}
+
+.priority-high {
+    border-left: 4px solid #dc3545;
+}
+
+.priority-medium {
+    border-left: 4px solid #ffc107;
+}
+
+.priority-low {
+    border-left: 4px solid #17a2b8;
+}
+
+/* Form field validation */
+.form-control:focus, .form-select:focus {
+    border-color: #1e3a8a;
+    box-shadow: 0 0 0 0.25rem rgba(30, 58, 138, 0.25);
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    border-color: #dc3545;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+/* Responsive table */
+@media (max-width: 992px) {
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+}
+
+/* Animation for row hover */
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* CSS cho trang chăm sóc khách hàng */
+
+/* Tab styling */
+.nav-tabs .nav-link {
+    color: #495057;
+    font-weight: 500;
+    border-radius: 0;
+    border-top: 3px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #007bff;
+    border-top: 3px solid #007bff;
+}
+
+.nav-tabs .nav-link:hover:not(.active) {
+    border-top: 3px solid #e9ecef;
+}
+
+/* Card styling */
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 0.75rem 1rem;
+}
+
+/* Ticket form card */
+#ticketFormCard {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#ticketFormCard.show {
+    opacity: 1;
+}
+
+/* Alert styling */
+.alert-floating {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    min-width: 300px;
+    max-width: 500px;
+    transition: top 0.3s ease;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.alert-floating.show-alert {
+    top: 20px;
+}
+
+/* Badge */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+/* Form controls */
+.form-control:focus, .form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Statistics styling */
+#statsOverview, #priorityStats {
+    padding: 0.5rem;
+}
+
+#resolutionRate {
+    transition: width 1s ease-in-out;
+}
+
+/* Forward history table */
+#forwardsTableBody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Customer info in the form */
+#customerInfo {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    border-left: 3px solid #007bff;
+} 

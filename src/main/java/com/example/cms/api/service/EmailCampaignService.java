@@ -59,7 +59,7 @@ public class EmailCampaignService {
         return false;
     }
 
-    public Optional<EmailCampaign> sendCampaignNow(String id) {
+    public Optional<EmailCampaign> sendCampaignNow(String id, String senderEmail) {
         return emailCampaignRepository.findById(id).map(emailCampaign -> {
             List<CustomerInfo> receivers;
 
@@ -77,6 +77,7 @@ public class EmailCampaignService {
 
             for (CustomerInfo customerInfo : receivers) {
                 boolean success = emailSenderService.sendEmail(
+                        senderEmail,
                         customerInfo.getEmail(),
                         emailCampaign.getTitle(),
                         emailCampaign.getContent()

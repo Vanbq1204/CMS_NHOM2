@@ -17,4 +17,6 @@ public class User {
     private String id;
     private String userName;
     private String password;
+    private String email;
+    private String role; // ADMIN or CUSTOMER
 }

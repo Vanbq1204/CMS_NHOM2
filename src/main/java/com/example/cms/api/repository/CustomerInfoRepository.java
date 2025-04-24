@@ -9,4 +9,5 @@ import java.util.List;
 public interface CustomerInfoRepository extends MongoRepository<CustomerInfo, String> {
     List<CustomerInfo> findByNameContainingIgnoreCase(String name); // Tìm khách theo tên
     List<CustomerInfo> findByType(String type); // Tìm khách theo loại
+    List<CustomerInfo> findByEmail(String email); // Tìm khách theo email
 }

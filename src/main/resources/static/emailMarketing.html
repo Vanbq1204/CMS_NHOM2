@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Marketing - Hệ Thống Quản Lý Khách Hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="css/customer.css" rel="stylesheet">
+    <!-- Include Summernote CSS for rich text editor -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Soa Nhóm 2</h3>
+            </div>
+            
+            <div class="sidebar-user">
+                <p>Xin chào, admin</p>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="customerInfo.html"><i class="fas fa-users me-2"></i> Quản lý khách hàng</a>
+                </li>
+                <li class="active">
+                    <a href="emailMarketing.html"><i class="fas fa-envelope me-2"></i> Email Marketing</a>
+                </li>
+                <li>
+                    <a href="customerCare.html"><i class="fas fa-headset me-2"></i> Chăm sóc khách hàng</a>
+                </li>
+        
+                <li>
+                    <a href="#"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 class="ms-3">Email Marketing</h2>
+                </div>
+            </nav>
+
+            <div class="container-fluid p-3">
+                <!-- Tabs for Email Marketing -->
+                <ul class="nav nav-tabs mb-4" id="emailTabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="campaigns-tab" data-bs-toggle="tab" href="#campaigns">Chiến dịch Email</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="groups-tab" data-bs-toggle="tab" href="#groups">Nhóm người nhận</a>
+                    </li>
+                </ul>
+                
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Campaigns Tab -->
+                    <div class="tab-pane fade show active" id="campaigns">
+                        <!-- Button Tạo chiến dịch mới -->
+                        <div class="mb-3">
+                            <button class="btn btn-primary" id="btnNewCampaign">
+                                <i class="fas fa-plus me-1"></i> Tạo chiến dịch mới
+                            </button>
+                        </div>
+
+                        <!-- Tìm kiếm và lọc -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" id="searchCampaign" class="form-control" placeholder="Tìm kiếm chiến dịch theo tiêu đề...">
+                                            <button class="btn btn-primary" id="btnSearchCampaign">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 mb-2">
+                                        <label class="form-label">Trạng thái</label>
+                                        <select id="filterStatus" class="form-select">
+                                            <option value="">Tất cả trạng thái</option>
+                                            <option value="Đã gửi">Đã gửi</option>
+                                            <option value="Đã lên lịch">Đã lên lịch</option>
+                                            <option value="Draft">Bản nháp</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label class="form-label">Nhóm người nhận</label>
+                                        <select id="filterReceiverGroup" class="form-select">
+                                            <option value="">Tất cả nhóm</option>
+                                            <!-- Will be populated from API -->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <button class="btn btn-primary" id="btnApplyFilterCampaigns">
+                                            <i class="fas fa-filter me-1"></i> Áp dụng bộ lọc
+                                        </button>
+                                        <button class="btn btn-outline-secondary" id="btnClearFilterCampaigns">
+                                            <i class="fas fa-times me-1"></i> Xóa bộ lọc
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bảng danh sách chiến dịch -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Tiêu đề</th>
+                                                <th>Nhóm người nhận</th>
+                                                <th>Đã gửi</th>
+                                                <th>Đã mở</th>
+                                                <th>Đã click</th>
+                                                <th>Trạng thái</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="campaignsTableBody">
+                                            <!-- Data will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Thêm/Sửa Chiến Dịch Email (Ẩn ban đầu) -->
+                        <div id="campaignFormCard" class="card mb-4" style="display: none;">
+                            <div class="card-header">
+                                <span id="campaignFormTitle">Tạo Chiến Dịch Mới</span>
+                                <button type="button" class="btn-close float-end" id="btnCloseCampaignForm"></button>
+                            </div>
+                            <div class="card-body">
+                                <form id="campaignForm">
+                                    <input type="hidden" id="campaignId">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Tiêu đề:</label>
+                                        <input type="text" class="form-control" id="campaignTitle" required>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Chọn nhóm người nhận:</label>
+                                            <select class="form-select" id="receiverGroupId">
+                                                <option value="">-- Chọn nhóm người nhận --</option>
+                                                <!-- Will be populated from API -->
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Hoặc chọn loại khách hàng:</label>
+                                            <select class="form-select" id="customerType">
+                                                <option value="">-- Chọn loại khách hàng --</option>
+                                                <option value="VIP">VIP</option>
+                                                <option value="Regular">Thường xuyên</option>
+                                                <option value="New">Mới</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="campaignContent" class="form-label">Nội dung email:</label>
+                                        <textarea id="campaignContent" class="form-control" rows="10"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Lên lịch gửi (để trống để lưu nháp):</label>
+                                        <input type="datetime-local" class="form-control" id="scheduledAt">
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-outline-secondary me-2" id="btnSaveDraft">
+                                            <i class="fas fa-save me-1"></i> Lưu nháp
+                                        </button>
+                                        <button type="button" class="btn btn-success me-2" id="btnSchedule">
+                                            <i class="fas fa-calendar me-1"></i> Lên lịch
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="btnSendNow">
+                                            <i class="fas fa-paper-plane me-1"></i> Gửi ngay
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Receiver Groups Tab -->
+                    <div class="tab-pane fade" id="groups">
+                        <!-- Button Tạo nhóm mới -->
+                        <div class="mb-3">
+                            <button class="btn btn-primary" id="btnNewGroup">
+                                <i class="fas fa-plus me-1"></i> Tạo nhóm người nhận mới
+                            </button>
+                        </div>
+
+                        <!-- Bảng danh sách nhóm người nhận -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên nhóm</th>
+                                                <th>Số lượng người nhận</th>
+                                                <th>Loại khách hàng</th>
+                                                <th>Tự động phân khúc</th>
+                                                <th>Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="groupsTableBody">
+                                            <!-- Data will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Thêm/Sửa Nhóm Người Nhận (Ẩn ban đầu) -->
+                        <div id="groupFormCard" class="card mb-4" style="display: none;">
+                            <div class="card-header">
+                                <span id="groupFormTitle">Tạo Nhóm Người Nhận Mới</span>
+                                <button type="button" class="btn-close float-end" id="btnCloseGroupForm"></button>
+                            </div>
+                            <div class="card-body">
+                                <form id="groupForm">
+                                    <input type="hidden" id="groupId">
+                                    <div class="mb-3">
+                                        <label for="groupName" class="form-label">Tên nhóm:</label>
+                                        <input type="text" class="form-control" id="groupName" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Loại khách hàng:</label>
+                                        <select class="form-select" id="groupCustomerType">
+                                            <option value="">-- Chọn loại khách hàng --</option>
+                                            <option value="VIP">VIP</option>
+                                            <option value="Regular">Thường xuyên</option>
+                                            <option value="New">Mới</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="autoSegmented">
+                                        <label class="form-check-label" for="autoSegmented">Tự động phân khúc theo loại khách hàng</label>
+                                    </div>
+                                    <div id="manualCustomerSelection" class="mb-3">
+                                        <label class="form-label">Chọn khách hàng:</label>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" id="customerSearch" placeholder="Tìm kiếm khách hàng...">
+                                                    <button class="btn btn-outline-secondary" type="button" id="btnSearchCustomers">
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                                                    <table class="table table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Chọn</th>
+                                                                <th>Họ tên</th>
+                                                                <th>Email</th>
+                                                                <th>Loại</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="customerSelectionList">
+                                                            <!-- Customer list will be loaded here -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-1"></i> Lưu nhóm
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Include Summernote JS for rich text editor -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script src="js/emailMarketing.js"></script>
+</body>
+</html> 

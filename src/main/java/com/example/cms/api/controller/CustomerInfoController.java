@@ -1,7 +1,10 @@
 package com.example.cms.api.controller;
 
 import com.example.cms.api.model.CustomerInfo;
+import com.example.cms.api.model.User;
 import com.example.cms.api.repository.CustomerInfoRepository;
+import com.example.cms.api.service.EmailSenderService;
+import com.example.cms.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,12 @@ public class CustomerInfoController {
 
     @Autowired
     private CustomerInfoRepository customerInfoRepository;
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     // Lấy tất cả thông tin khách hàng
     @GetMapping
@@ -38,8 +47,39 @@ public class CustomerInfoController {
 
     // Tạo mới thông tin khách hàng
     @PostMapping
-    public CustomerInfo createCustomerInfo(@RequestBody CustomerInfo customerInfo) {
-        return customerInfoRepository.save(customerInfo); // Lưu thông tin khách hàng mới vào DB
+    public ResponseEntity<?> createCustomerInfo(@RequestBody CustomerInfo customerInfo) {
+        // Lưu thông tin khách hàng mới vào DB
+        CustomerInfo savedCustomer = customerInfoRepository.save(customerInfo);
+        
+        // Tạo tài khoản đăng nhập cho khách hàng
+        String email = savedCustomer.getEmail();
+        String defaultPassword = "khachhangcms@123";
+        
+        if (email != null && !email.isEmpty()) {
+            // Tạo tài khoản với vai trò CUSTOMER
+            User newUser = userService.registerCustomer(email, defaultPassword, email);
+            
+            if (newUser != null) {
+                // Gửi thông báo tài khoản qua email
+                String emailSubject = "Thông tin tài khoản CMS của bạn";
+                String emailContent = "<html><body>"
+                    + "<h2>Kính gửi " + savedCustomer.getName() + "</h2>"
+                    + "<p>Tài khoản của bạn trên hệ thống CMS đã được tạo thành công.</p>"
+                    + "<p><b>Thông tin đăng nhập:</b></p>"
+                    + "<ul>"
+                    + "<li><b>Tên đăng nhập:</b> " + email + "</li>"
+                    + "<li><b>Mật khẩu:</b> " + defaultPassword + "</li>"
+                    + "</ul>"
+                    + "<p>Vui lòng đăng nhập tại: <a href='http://localhost:8080/login.html'>Hệ thống quản lý khách hàng</a></p>"
+                    + "<p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>"
+                    + "</body></html>";
+                
+                // Gửi email thông báo
+                emailSenderService.sendEmail("admin@cms.com", email, emailSubject, emailContent);
+            }
+        }
+        
+        return ResponseEntity.ok(savedCustomer);
     }
 
     // Cập nhật thông tin khách hàng
@@ -88,5 +128,11 @@ public class CustomerInfoController {
     @GetMapping("/search/type")
     public List<CustomerInfo> searchByType(@RequestParam String type) {
         return customerInfoRepository.findByType(type); // Tìm kiếm khách hàng theo loại
+    }
+
+    // Tìm kiếm khách hàng theo email
+    @GetMapping("/search/email")
+    public List<CustomerInfo> searchByEmail(@RequestParam String email) {
+        return customerInfoRepository.findByEmail(email); // Tìm kiếm khách hàng theo email
     }
 }

@@ -55,8 +55,8 @@ public class EmailCampaignController {
     }
 
     @PostMapping("/{id}/send")
-    public ResponseEntity<EmailCampaign> sendNow(@PathVariable String id) {
-        return emailCampaignService.sendCampaignNow(id)
+    public ResponseEntity<EmailCampaign> sendNow(@PathVariable String id, @RequestParam String senderEmail) {
+        return emailCampaignService.sendCampaignNow(id, senderEmail)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
