@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,5 +20,6 @@ public class User {
     private String userName;
     private String password;
     private String email;
-    private String role; // ADMIN or CUSTOMER
+    private Set<String> roles;  // ADMIN or CUSTOMER
+    private Set<String> permissions; // READ, WRITE, DELETE
 }
