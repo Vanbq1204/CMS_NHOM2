@@ -18,6 +18,10 @@ public class EmailReceiverGroupService {
         return emailReceiverGroupRepository.findAll();
     }
 
+    public EmailReceiverGroup getById(String id) {
+        return emailReceiverGroupRepository.findById(id).orElse(null);
+    }
+
     public EmailReceiverGroup create(EmailReceiverGroup emailReceiverGroup) {
         return emailReceiverGroupRepository.save(emailReceiverGroup);
     }

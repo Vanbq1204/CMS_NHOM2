@@ -4,12 +4,14 @@ import com.example.cms.api.model.EmailCampaign;
 import com.example.cms.api.service.EmailCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMIN', 'ADMIN_EMAIL_MARKETING', 'ADMIN_CUSTOMER')")
 @RequestMapping("/api/email-campaigns")
 public class EmailCampaignController {
 
@@ -46,6 +48,7 @@ public class EmailCampaignController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteEmailCampaign(@PathVariable String id) {
         if (emailCampaignService.delete(id)) {
             return ResponseEntity.noContent().build();

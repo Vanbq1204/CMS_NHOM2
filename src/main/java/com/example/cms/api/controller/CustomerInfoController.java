@@ -8,12 +8,14 @@ import com.example.cms.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMIN', 'ADMIN_CUSTOMER')")
 @RequestMapping("/api/customer-info")
 public class CustomerInfoController {
 
@@ -105,6 +107,8 @@ public class CustomerInfoController {
     }
 
     // Xóa thông tin khách hàng theo ID
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCustomerInfo(@PathVariable String id) {
         // Kiểm tra xem khách hàng có tồn tại không

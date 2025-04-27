@@ -5,9 +5,13 @@ import com.example.cms.api.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
@@ -20,19 +24,6 @@ public class UserController {
     public void redirectToLogin(HttpServletResponse response) throws IOException {
         response.sendRedirect("/login.html"); // Redirects to login.html
     }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String userName, @RequestParam String password) {
-        return userService.login(userName, password)
-                .map(user -> ResponseEntity.ok("Login successful"))
-                .orElseGet(() -> {
-                    if (userService.userExists(userName)) {
-                        return ResponseEntity.status(401).body("Invalid password");
-                    } else {
-                        return ResponseEntity.status(404).body("User not found");
-                    }
-                });
-    }
     
     @PostMapping("/register")
     public ResponseEntity<String> register(
@@ -41,14 +32,14 @@ public class UserController {
             @RequestParam String email) {
         
         if (userService.userExists(userName)) {
-            return ResponseEntity.status(409).body("Username already exists");
+            return ResponseEntity.status(409).body("Tài khoản đã tồn tại");
         }
         
         User newUser = userService.register(userName, password, email);
         if (newUser != null) {
-            return ResponseEntity.ok("Registration successful");
+            return ResponseEntity.ok("Đăng ký thành công");
         } else {
-            return ResponseEntity.status(500).body("Registration failed");
+            return ResponseEntity.status(500).body("Đăng ký không thành công");
         }
     }
 
@@ -59,14 +50,34 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/role")
-    public ResponseEntity<String> getUserRole(@RequestParam String userName) {
+    @GetMapping("/roles")
+    public ResponseEntity<Set<String>> getUserRoles(@RequestParam String userName) {
         return userService.findByUserName(userName)
-                .map(user -> {
-                    String role = user.getRole();
-                    // Default to ADMIN if role is not set
-                    return ResponseEntity.ok(role != null ? role : "ADMIN");
-                })
+                .map(User::getRoles)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/permissions")
+    public ResponseEntity<Set<String>> getUserPermissions(@RequestParam String userName) {
+        return userService.findByUserName(userName)
+                .map(User::getPermissions)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(401).body("Không có quyền truy cập");
+        }
+
+        Optional<User> userOptional = userService.findByUserName(principal.getUsername());
+        if (!userOptional.isPresent()) {
+            return ResponseEntity.status(404).body("Không tìm thấy người dùng");
+        }
+
+        User user = userOptional.get();
+        return ResponseEntity.ok().body(user);
     }
 }

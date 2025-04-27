@@ -3,27 +3,21 @@ package com.example.cms.api.service;
 import com.example.cms.api.model.User;
 import com.example.cms.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<User> login(String userName, String password) {
-        return userRepository.findByUserName(userName)
-                .filter(user -> user.getPassword() != null && user.getPassword().equals(password))
-                .map(user -> {
-                    // Set default role if not already set
-                    if (user.getRole() == null) {
-                        user.setRole("ADMIN"); // Default role for existing users
-                        userRepository.save(user);
-                    }
-                    return user;
-                });
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public boolean userExists(String userName) {
         return userRepository.findByUserName(userName).isPresent();
@@ -36,9 +30,12 @@ public class UserService {
         
         User newUser = new User();
         newUser.setUserName(userName);
-        newUser.setPassword(password);
+        newUser.setPassword(passwordEncoder.encode(password));
         newUser.setEmail(email);
-        newUser.setRole("ADMIN"); // Default role
+
+        Set<String> roles = new HashSet<>();
+        roles.add("CUSTOMER"); // Default role
+        newUser.setRoles(roles);
         
         return userRepository.save(newUser);
     }
@@ -52,7 +49,10 @@ public class UserService {
         newUser.setUserName(userName);
         newUser.setPassword(password);
         newUser.setEmail(email);
-        newUser.setRole("CUSTOMER"); // Customer role
+
+        Set<String> roles = new HashSet<>();
+        roles.add("CUSTOMER"); // Customer role
+        newUser.setRoles(roles);
         
         return userRepository.save(newUser);
     }

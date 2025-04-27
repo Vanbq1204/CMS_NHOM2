@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // API URL
+
     const API_URL = '/api/customer-info';
-    
-    // DOM Elements
+
     const customerForm = document.getElementById('customerForm');
     const customerFormCard = document.getElementById('customerFormCard');
     const formTitle = document.getElementById('formTitle');
@@ -18,6 +17,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebarCollapse = document.getElementById('sidebarCollapse');
     const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('content');
+
+    let hasAccess = false;
+
+    fetch('/api/users/me')
+        .then(res => {
+            if (!res.ok)
+                throw new Error('Không lấy được quyền người dùng');
+            return res.json();
+        })
+        .then(user => {
+            if (!user || !user.roles)
+                throw new Error('Không có thông tin người dùng');
+
+            const isAdmin = user.roles.includes('ADMIN');
+            const hasAccess = isAdmin || user.roles.includes('ADMIN_CUSTOMER');
+
+            if (!hasAccess) {
+                alert('Bạn không có quyền truy cập chức năng quản lý khách hàng.');
+                return;
+            }
+
+            if (isAdmin) {
+                ['menu-customer', 'menu-email', 'menu-care'].forEach(id=> {
+                    document.getElementById(id).style.display = 'block';
+                });
+            } else {
+                if (user.roles.includes('ADMIN_CUSTOMER')) {
+                    document.getElementById('menu-customer').style.display = 'block';
+                }
+                if (user.roles.includes('ADMIN_EMAIL_MARKETING')) {
+                    document.getElementById('menu-email').style.display = 'block';
+                }
+                if (user.roles.includes('ADMIN_CUSTOMER_CARE')) {
+                    document.getElementById('menu-care').style.display = 'block';
+                }
+            }
+            loadCustomers();
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Lỗi khi kiểm tra quyền. Vui lòng đăng nhập lại.');
+            window.location.href = '/login.html';
+        });
 
     // Toggle sidebar
     sidebarCollapse.addEventListener('click', function() {
@@ -61,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 customerTableBody.innerHTML = '';
                 data.forEach(customer => {
-                    renderCustomerRow(customer);
+                    renderCustomerRow(customer, hasAccess);
                 });
             })
             .catch(error => {
@@ -71,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Render hàng dữ liệu khách hàng
-    function renderCustomerRow(customer) {
+    function renderCustomerRow(customer, hasAccess) {
         // Mô phỏng các trường dữ liệu bổ sung (sẽ được cập nhật khi bạn thêm vào API thực tế)
         const company = customer.company || 'N/A';
         const projectType = customer.projectType || 'N/A';
@@ -81,6 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const deadline = customer.deadline ? formatDate(customer.deadline) : 'N/A';
         
         const row = document.createElement('tr');
+
+        const canDelete = hasAccess && hasAccess.includes('ADMIN');
+
         row.innerHTML = `
             <td>${customer.name}</td>
             <td>${customer.email}</td>
@@ -103,17 +148,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="btn btn-sm btn-warning me-1 btn-edit" data-id="${customer.id}">
                     <i class="fas fa-edit"></i> Sửa
                 </button>
+                ${canDelete ? `
                 <button class="btn btn-sm btn-danger btn-delete" data-id="${customer.id}">
                     <i class="fas fa-trash"></i> Xóa
-                </button>
+                </button> ` : ''}
             </td>
         `;
-        
+
         customerTableBody.appendChild(row);
         
         // Add event listeners for buttons
         row.querySelector('.btn-edit').addEventListener('click', () => editCustomer(customer.id));
-        row.querySelector('.btn-delete').addEventListener('click', () => deleteCustomer(customer.id));
+        const deleteBtn = row.querySelector('.btn-delete');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => deleteCustomer(customer.id));
+        }
     }
 
     // Định dạng tiền tệ
@@ -333,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 customerTableBody.innerHTML = '';
                 data.forEach(customer => {
-                    renderCustomerRow(customer);
+                    renderCustomerRow(customer, hasAccess);
                 });
             })
             .catch(error => {
@@ -371,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 customerTableBody.innerHTML = '';
                 filteredData.forEach(customer => {
-                    renderCustomerRow(customer);
+                    renderCustomerRow(customer, hasAccess);
                 });
             })
             .catch(error => {
@@ -397,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Refresh button
     btnRefresh.addEventListener('click', loadCustomers);
-    
+
     // Load customers on page load
     loadCustomers();
 }); 
